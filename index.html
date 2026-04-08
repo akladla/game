@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamWin - Play & Win Real Money</title>
+    <meta name="description" content="DreamWin - India's Best Gaming Platform. Play games, earn money, refer friends and win big prizes!">
+    <meta name="keywords" content="gaming, earn money, play games, real cash, dreamwin">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-content text-center">
+            <div class="loader-logo mb-2">🎮</div>
+            <div class="loader"></div>
+            <p class="mt-2 text-muted">Loading DreamWin...</p>
+        </div>
+    </div>
+
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="auth-container">
+        <div class="auth-box">
+            <!-- Auth Header -->
+            <div class="auth-header text-center mb-4">
+                <div class="auth-logo">🎮</div>
+                <h1 class="text-gradient">DreamWin</h1>
+                <p class="text-muted">Play Games • Earn Money • Win Big</p>
+            </div>
+
+            <!-- Auth Tabs -->
+            <div class="tabs mb-3" id="auth-tabs">
+                <button class="tab active" onclick="showAuthTab('login')">Login</button>
+                <button class="tab" onclick="showAuthTab('register')">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <div class="form-input-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" class="form-input" id="login-phone" placeholder="Enter your phone number" maxlength="10">
+                    </div>
+                </div>
+                <button class="btn btn-primary w-full btn-lg" onclick="sendOTP('login')">
+                    <i class="fas fa-paper-plane"></i> Send OTP
+                </button>
+                
+                <div id="login-otp-section" class="mt-3 hidden">
+                    <div class="form-group">
+                        <label class="form-label">Enter OTP</label>
+                        <div class="otp-inputs flex gap-2 justify-center">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="0">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="1">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="2">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="3">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="4">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="5">
+                        </div>
+                        <p class="text-muted text-center mt-2">OTP: 123456 (for demo)</p>
+                    </div>
+                    <button class="btn btn-success w-full btn-lg" onclick="verifyLoginOTP()">
+                        <i class="fas fa-check"></i> Verify & Login
+                    </button>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="auth-form hidden">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <div class="form-input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-input" id="register-name" placeholder="Enter your name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <div class="form-input-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" class="form-input" id="register-phone" placeholder="Enter your phone number" maxlength="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Referral Code (Optional)</label>
+                    <div class="form-input-icon">
+                        <i class="fas fa-gift"></i>
+                        <input type="text" class="form-input" id="register-referral" placeholder="Enter referral code">
+                    </div>
+                </div>
+                <button class="btn btn-primary w-full btn-lg" onclick="sendOTP('register')">
+                    <i class="fas fa-paper-plane"></i> Send OTP
+                </button>
+                
+                <div id="register-otp-section" class="mt-3 hidden">
+                    <div class="form-group">
+                        <label class="form-label">Enter OTP</label>
+                        <div class="otp-inputs flex gap-2 justify-center">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="0">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="1">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="2">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="3">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="4">
+                            <input type="text" class="form-input otp-input" maxlength="1" data-index="5">
+                        </div>
+                        <p class="text-muted text-center mt-2">OTP: 123456 (for demo)</p>
+                    </div>
+                    <button class="btn btn-success w-full btn-lg" onclick="verifyRegisterOTP()">
+                        <i class="fas fa-check"></i> Verify & Register
+                    </button>
+                </div>
+            </div>
+
+            <!-- Social Login -->
+            <div class="social-login mt-4">
+                <p class="text-muted text-center mb-2">Or continue with</p>
+                <div class="flex gap-2 justify-center">
+                    <button class="btn btn-secondary btn-icon" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button class="btn btn-secondary btn-icon" onclick="socialLogin('facebook')">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="hidden">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-content">
+                    <a href="#home" class="navbar-brand" onclick="navigateTo('home')">
+                        <span>🎮</span>
+                        <span>DreamWin</span>
+                    </a>
+                    
+                    <div class="navbar-menu" id="navbar-menu">
+                        <a href="#home" class="navbar-link active" onclick="navigateTo('home')">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a href="#games" class="navbar-link" onclick="navigateTo('games')">
+                            <i class="fas fa-gamepad"></i> Games
+                        </a>
+                        <a href="#wallet" class="navbar-link" onclick="navigateTo('wallet')">
+                            <i class="fas fa-wallet"></i> Wallet
+                        </a>
+                        <a href="#leaderboard" class="navbar-link" onclick="navigateTo('leaderboard')">
+                            <i class="fas fa-trophy"></i> Leaderboard
+                        </a>
+                    </div>
+                    
+                    <div class="navbar-actions">
+                        <div class="navbar-balance flex items-center gap-2 mr-2">
+                            <span class="badge badge-warning" id="nav-balance">₹0</span>
+                        </div>
+                        <button class="btn btn-icon btn-secondary" onclick="toggleNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notification-count">0</span>
+                        </button>
+                        <button class="btn btn-icon btn-secondary" onclick="toggleTheme()">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                        <button class="btn btn-icon btn-secondary navbar-toggle" onclick="toggleMenu()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <!-- User Profile Mini -->
+            <div class="user-mini" onclick="navigateTo('profile')">
+                <div class="user-avatar-container">
+                    <span id="sidebar-avatar" class="character-emoji">🎮</span>
+                    <span class="online-status"></span>
+                </div>
+                <div class="user-mini-info">
+                    <h4 id="sidebar-name">Player</h4>
+                    <p><span class="badge badge-level" id="sidebar-level">Level 0</span></p>
+                </div>
+            </div>
+
+            <!-- Level Progress -->
+            <div class="level-section mb-3">
+                <div class="flex justify-between text-muted mb-1">
+                    <small>Level Progress</small>
+                    <small id="level-progress-text">0%</small>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" id="level-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#home" class="sidebar-link active" onclick="navigateTo('home')">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#games" class="sidebar-link" onclick="navigateTo('games')">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Games</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#wallet" class="sidebar-link" onclick="navigateTo('wallet')">
+                        <i class="fas fa-wallet"></i>
+                        <span>Wallet</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#spin" class="sidebar-link" onclick="navigateTo('spin')">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Spin & Win</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#referral" class="sidebar-link" onclick="navigateTo('referral')">
+                        <i class="fas fa-users"></i>
+                        <span>Refer & Earn</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#tasks" class="sidebar-link" onclick="navigateTo('tasks')">
+                        <i class="fas fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#leaderboard" class="sidebar-link" onclick="navigateTo('leaderboard')">
+                        <i class="fas fa-trophy"></i>
+                        <span>Leaderboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#shop" class="sidebar-link" onclick="navigateTo('shop')">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Shop</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Section -->
+            <div class="sidebar-section">
+                <h6 class="sidebar-section-title">Social</h6>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">
+                        <a href="#clans" class="sidebar-link" onclick="navigateTo('clans')">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Clans</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#chat" class="sidebar-link" onclick="navigateTo('chat')">
+                            <i class="fas fa-comments"></i>
+                            <span>Chat</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#tournaments" class="sidebar-link" onclick="navigateTo('tournaments')">
+                            <i class="fas fa-crown"></i>
+                            <span>Tournaments</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h6 class="sidebar-section-title">Account</h6>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">
+                        <a href="#profile" class="sidebar-link" onclick="navigateTo('profile')">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#achievements" class="sidebar-link" onclick="navigateTo('achievements')">
+                            <i class="fas fa-medal"></i>
+                            <span>Achievements</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#settings" class="sidebar-link" onclick="navigateTo('settings')">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link text-danger" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <!-- Home Page -->
+            <div id="page-home" class="page">
+                <!-- Hero Section -->
+                <section class="hero-section mb-4">
+                    <div class="hero-card">
+                        <div class="hero-content">
+                            <h1>Welcome to <span class="text-gradient">DreamWin</span></h1>
+                            <p class="text-muted">Play games, earn money, and win big prizes!</p>
+                            <div class="flex gap-2 mt-3">
+                                <button class="btn btn-primary btn-lg" onclick="navigateTo('games')">
+                                    <i class="fas fa-gamepad"></i> Play Now
+                                </button>
+                                <button class="btn btn-warning btn-lg" onclick="navigateTo('spin')">
+                                    <i class="fas fa-sync-alt"></i> Spin & Win
+                                </button>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400" alt="Gaming">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Stats -->
+                <section class="quick-stats mb-4">
+                    <div class="grid grid-4 gap-3">
+                        <div class="stat-card animate-slideUp" style="animation-delay: 0.1s">
+                            <div class="stat-value text-gradient" id="stat-balance">₹0</div>
+                            <div class="stat-label">Balance</div>
+                        </div>
+                        <div class="stat-card animate-slideUp" style="animation-delay: 0.2s">
+                            <div class="stat-value text-success" id="stat-wins">0</div>
+                            <div class="stat-label">Games Won</div>
+                        </div>
+                        <div class="stat-card animate-slideUp" style="animation-delay: 0.3s">
+                            <div class="stat-value text-warning" id="stat-level">0</div>
+                            <div class="stat-label">Level</div>
+                        </div>
+                        <div class="stat-card animate-slideUp" style="animation-delay: 0.4s">
+                            <div class="stat-value text-primary" id="stat-referrals">0</div>
+                            <div class="stat-label">Referrals</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Daily Bonus Banner -->
+                <section class="daily-bonus mb-4" id="daily-bonus-banner">
+                    <div class="bonus-banner" onclick="navigateTo('spin')">
+                        <div class="bonus-content">
+                            <span class="bonus-icon">🎡</span>
+                            <div>
+                                <h3>Daily Spin Available!</h3>
+                                <p>Win minimum ₹90 guaranteed!</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-warning">Spin Now</button>
+                    </div>
+                </section>
+
+                <!-- Featured Games -->
+                <section class="featured-games mb-4">
+                    <div class="section-header flex justify-between items-center mb-3">
+                        <h2><i class="fas fa-star text-warning"></i> Featured Games</h2>
+                        <a href="#games" class="btn btn-outline btn-sm" onclick="navigateTo('games')">View All</a>
+                    </div>
+                    <div class="grid grid-5 gap-3" id="featured-games-grid">
+                        <!-- Games loaded by JS -->
+                    </div>
+                </section>
+
+                <!-- Categories -->
+                <section class="game-categories mb-4">
+                    <div class="section-header mb-3">
+                        <h2><i class="fas fa-th-large text-primary"></i> Categories</h2>
+                    </div>
+                    <div class="categories-scroll">
+                        <div class="category-item" onclick="filterGames('all')">
+                            <div class="category-icon">🎮</div>
+                            <span>All Games</span>
+                        </div>
+                        <div class="category-item" onclick="filterGames('cards')">
+                            <div class="category-icon">🃏</div>
+                            <span>Cards</span>
+                        </div>
+                        <div class="category-item" onclick="filterGames('dice')">
+                            <div class="category-icon">🎲</div>
+                            <span>Dice</span>
+                        </div>
+                        <div class="category-item" onclick="filterGames('slots')">
+                            <div class="category-icon">🎰</div>
+                            <span>Slots</span>
+                        </div>
+                        <div class="category-item" onclick="filterGames('sports')">
+                            <div class="category-icon">⚽</div>
+                            <span>Sports</span>
+                        </div>
+                        <div class="category-item" onclick="filterGames('board')">
+                            <div class="category-icon">🎯</div>
+                            <span>Board</span>
+                        </div>
+                        <div class="category-item" onclick="filterGames('esports')">
+                            <div class="category-icon">🏆</div>
+                            <span>eSports</span>
+                        </div>
+                        <div class="category-item" onclick="filterGames('puzzle')">
+                            <div class="category-icon">🧩</div>
+                            <span>Puzzle</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Popular Games -->
+                <section class="popular-games mb-4">
+                    <div class="section-header flex justify-between items-center mb-3">
+                        <h2><i class="fas fa-fire text-danger"></i> Popular Games</h2>
+                        <a href="#games" class="btn btn-outline btn-sm" onclick="navigateTo('games')">View All</a>
+                    </div>
+                    <div class="grid grid-4 gap-3" id="popular-games-grid">
+                        <!-- Games loaded by JS -->
+                    </div>
+                </section>
+
+                <!-- VIP Banner -->
+                <section class="vip-banner mb-4">
+                    <div class="vip-card" onclick="navigateTo('shop')">
+                        <div class="vip-content">
+                            <span class="vip-icon">👑</span>
+                            <div>
+                                <h3>Become a VIP Member</h3>
+                                <p>Unlock exclusive games, higher rewards, and special perks!</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-vip">Join VIP</button>
+                    </div>
+                </section>
+
+                <!-- Live Tournaments -->
+                <section class="live-tournaments mb-4">
+                    <div class="section-header flex justify-between items-center mb-3">
+                        <h2><i class="fas fa-crown text-warning"></i> Live Tournaments</h2>
+                        <a href="#tournaments" class="btn btn-outline btn-sm" onclick="navigateTo('tournaments')">View All</a>
+                    </div>
+                    <div class="grid grid-3 gap-3" id="tournaments-grid">
+                        <!-- Tournaments loaded by JS -->
+                    </div>
+                </section>
+
+                <!-- Top Winners -->
+                <section class="top-winners mb-4">
+                    <div class="section-header mb-3">
+                        <h2><i class="fas fa-trophy text-warning"></i> Top Winners Today</h2>
+                    </div>
+                    <div class="leaderboard-mini" id="top-winners-list">
+                        <!-- Winners loaded by JS -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Games Page -->
+            <div id="page-games" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-gamepad"></i> Games</h1>
+                    <p class="text-muted">Choose from 24+ exciting games</p>
+                </div>
+
+                <!-- Search & Filter -->
+                <div class="search-filter mb-4">
+                    <div class="flex gap-2">
+                        <div class="form-input-icon flex-1">
+                            <i class="fas fa-search"></i>
+                            <input type="text" class="form-input" id="game-search" placeholder="Search games..." oninput="searchGames(this.value)">
+                        </div>
+                        <button class="btn btn-secondary" onclick="showGameFilters()">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game Categories Tabs -->
+                <div class="tabs mb-4" id="game-category-tabs">
+                    <button class="tab active" onclick="filterGames('all')">All</button>
+                    <button class="tab" onclick="filterGames('cards')">Cards</button>
+                    <button class="tab" onclick="filterGames('sports')">Sports</button>
+                    <button class="tab" onclick="filterGames('board')">Board</button>
+                </div>
+
+                <!-- Games Grid -->
+                <div class="games-container">
+                    <div class="grid grid-5 gap-3" id="games-grid">
+                        <!-- Games loaded by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Page -->
+            <div id="page-wallet" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-wallet"></i> Wallet</h1>
+                    <p class="text-muted">Manage your funds</p>
+                </div>
+
+                <!-- Wallet Cards -->
+                <div class="grid grid-2 gap-3 mb-4">
+                    <div class="wallet-card">
+                        <div class="wallet-balance">Main Balance</div>
+                        <div class="wallet-amount" id="wallet-balance">₹0</div>
+                        <div class="wallet-actions">
+                            <button class="btn" onclick="showAddMoneyModal()">
+                                <i class="fas fa-plus"></i> Add Money
+                            </button>
+                            <button class="btn" onclick="showWithdrawModal()">
+                                <i class="fas fa-arrow-down"></i> Withdraw
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bonus-card">
+                        <div class="bonus-title">Bonus Balance</div>
+                        <div class="bonus-amount" id="wallet-bonus">₹0</div>
+                        <p class="mt-2">Use bonus for games!</p>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions mb-4">
+                    <h3 class="mb-3">Quick Add</h3>
+                    <div class="flex gap-2 flex-wrap">
+                        <button class="btn btn-secondary" onclick="addQuickMoney(100)">₹100</button>
+                        <button class="btn btn-secondary" onclick="addQuickMoney(200)">₹200</button>
+                        <button class="btn btn-secondary" onclick="addQuickMoney(500)">₹500</button>
+                        <button class="btn btn-secondary" onclick="addQuickMoney(1000)">₹1000</button>
+                        <button class="btn btn-secondary" onclick="showAddMoneyModal()">Custom</button>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="transaction-history">
+                    <h3 class="mb-3">Transaction History</h3>
+                    <div class="card">
+                        <div id="transactions-list">
+                            <!-- Transactions loaded by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spin Page -->
+            <div id="page-spin" class="page hidden">
+                <div class="page-header text-center mb-4">
+                    <h1><i class="fas fa-sync-alt"></i> Spin & Win</h1>
+                    <p class="text-muted">Win minimum ₹90 guaranteed!</p>
+                </div>
+
+                <!-- Spins Available -->
+                <div class="text-center mb-3">
+                    <span class="badge badge-success" id="spins-available">1 Spin Available</span>
+                </div>
+
+                <!-- Spin Wheel -->
+                <div class="spin-container">
+                    <div class="spin-wheel" id="spin-wheel">
+                        <div class="spin-pointer"></div>
+                        <svg class="spin-wheel-svg" id="wheel-svg" viewBox="0 0 200 200">
+                            <!-- Wheel segments generated by JS -->
+                        </svg>
+                        <button class="spin-btn" id="spin-btn" onclick="spinWheel()">SPIN</button>
+                    </div>
+                </div>
+
+                <!-- Spin Result Modal -->
+                <div class="modal-overlay" id="spin-result-modal">
+                    <div class="modal">
+                        <div class="modal-body text-center p-4">
+                            <div class="spin-result-icon mb-3">🎉</div>
+                            <h2 class="text-gradient mb-2">Congratulations!</h2>
+                            <p class="text-muted mb-3">You won</p>
+                            <div class="spin-result-amount text-gradient" id="spin-result-amount">₹0</div>
+                            <button class="btn btn-primary btn-lg w-full mt-4" onclick="closeSpinResult()">Claim Reward</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Referral Page -->
+            <div id="page-referral" class="page hidden">
+                <div class="page-header text-center mb-4">
+                    <h1><i class="fas fa-users"></i> Refer & Earn</h1>
+                    <p class="text-muted">Invite friends and earn ₹50 per referral!</p>
+                </div>
+
+                <!-- Referral Stats -->
+                <div class="grid grid-3 gap-3 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-value text-primary" id="referral-count">0</div>
+                        <div class="stat-label">Total Referrals</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value text-success" id="referral-earned">₹0</div>
+                        <div class="stat-label">Total Earned</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value text-warning">₹50</div>
+                        <div class="stat-label">Per Referral</div>
+                    </div>
+                </div>
+
+                <!-- Referral Code -->
+                <div class="referral-code mb-4">
+                    <div class="referral-code-label">Your Referral Code</div>
+                    <div class="referral-code-value" id="referral-code">XXXXXXXX</div>
+                    <div class="flex gap-2 justify-center">
+                        <button class="btn btn-primary" onclick="copyReferralCode()">
+                            <i class="fas fa-copy"></i> Copy Code
+                        </button>
+                        <button class="btn btn-success" onclick="shareReferral()">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </div>
+
+                <!-- How it Works -->
+                <div class="card mb-4">
+                    <h3 class="card-title">How it Works</h3>
+                    <div class="referral-steps">
+                        <div class="referral-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Share your code</h4>
+                                <p>Share your unique referral code with friends</p>
+                            </div>
+                        </div>
+                        <div class="referral-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Friend signs up</h4>
+                                <p>Friend registers using your referral code</p>
+                            </div>
+                        </div>
+                        <div class="referral-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Both get rewarded</h4>
+                                <p>You get ₹50, friend gets ₹20 bonus</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Referral List -->
+                <div class="referral-list">
+                    <h3 class="mb-3">Your Referrals</h3>
+                    <div id="referrals-list">
+                        <!-- Referrals loaded by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Page -->
+            <div id="page-tasks" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-tasks"></i> Daily Tasks</h1>
+                    <p class="text-muted">Complete tasks to earn rewards</p>
+                </div>
+
+                <!-- Tasks List -->
+                <div id="tasks-list">
+                    <!-- Tasks loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Leaderboard Page -->
+            <div id="page-leaderboard" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-trophy"></i> Leaderboard</h1>
+                    <p class="text-muted">Top players and their winnings</p>
+                </div>
+
+                <!-- Leaderboard Tabs -->
+                <div class="tabs mb-4">
+                    <button class="tab active" onclick="loadLeaderboard('daily')">Daily</button>
+                    <button class="tab" onclick="loadLeaderboard('weekly')">Weekly</button>
+                    <button class="tab" onclick="loadLeaderboard('alltime')">All Time</button>
+                </div>
+
+                <!-- Top 3 -->
+                <div class="top-three mb-4" id="top-three">
+                    <!-- Top 3 loaded by JS -->
+                </div>
+
+                <!-- Leaderboard List -->
+                <div id="leaderboard-list">
+                    <!-- Leaderboard loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Shop Page -->
+            <div id="page-shop" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-shopping-cart"></i> Shop</h1>
+                    <p class="text-muted">Buy spins, boosters, and more!</p>
+                </div>
+
+                <!-- Shop Categories -->
+                <div class="tabs mb-4">
+                    <button class="tab active" onclick="loadShopCategory('all')">All</button>
+                    <button class="tab" onclick="loadShopCategory('spins')">Spins</button>
+                    <button class="tab" onclick="loadShopCategory('vip')">VIP</button>
+                    <button class="tab" onclick="loadShopCategory('boosters')">Boosters</button>
+                </div>
+
+                <!-- Shop Items -->
+                <div class="grid grid-4 gap-3" id="shop-grid">
+                    <!-- Shop items loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="page-profile" class="page hidden">
+                <div class="page-header text-center mb-4">
+                    <h1><i class="fas fa-user"></i> Profile</h1>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="profile-card card mb-4 text-center">
+                    <div class="profile-avatar-container">
+                        <div class="profile-avatar" id="profile-avatar">🎮</div>
+                        <button class="btn btn-icon btn-sm btn-primary" onclick="navigateTo('characters')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    <h2 id="profile-name">Player</h2>
+                    <p class="text-muted" id="profile-phone">+91 XXXXXXXXXX</p>
+                    <div class="flex gap-2 justify-center mt-2">
+                        <span class="badge badge-level" id="profile-level">Level 0</span>
+                        <span class="vip-badge hidden" id="profile-vip">👑 VIP</span>
+                    </div>
+                </div>
+
+                <!-- Profile Stats -->
+                <div class="grid grid-4 gap-3 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-value" id="profile-games-played">0</div>
+                        <div class="stat-label">Games Played</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value text-success" id="profile-games-won">0</div>
+                        <div class="stat-label">Games Won</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value text-warning" id="profile-total-earnings">₹0</div>
+                        <div class="stat-label">Total Earnings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value text-danger" id="profile-streak">0</div>
+                        <div class="stat-label">Win Streak</div>
+                    </div>
+                </div>
+
+                <!-- Account Info -->
+                <div class="card mb-4">
+                    <h3 class="card-title">Account Information</h3>
+                    <div class="account-info">
+                        <div class="info-item">
+                            <span class="info-label">Member Since</span>
+                            <span class="info-value" id="profile-joined">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Login</span>
+                            <span class="info-value" id="profile-last-login">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Spins</span>
+                            <span class="info-value" id="profile-total-spins">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Characters Page -->
+            <div id="page-characters" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-user-circle"></i> Choose Character</h1>
+                    <p class="text-muted">Select your avatar</p>
+                </div>
+
+                <!-- Character Categories -->
+                <div class="tabs mb-4">
+                    <button class="tab active" onclick="filterCharacters('all')">All</button>
+                    <button class="tab" onclick="filterCharacters('boy')">Boy</button>
+                    <button class="tab" onclick="filterCharacters('girl')">Girl</button>
+                    <button class="tab" onclick="filterCharacters('fantasy')">Fantasy</button>
+                    <button class="tab" onclick="filterCharacters('robot')">Robot</button>
+                    <button class="tab" onclick="filterCharacters('animal')">Animal</button>
+                </div>
+
+                <!-- Characters Grid -->
+                <div class="grid grid-5 gap-3" id="characters-grid">
+                    <!-- Characters loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Achievements Page -->
+            <div id="page-achievements" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-medal"></i> Achievements</h1>
+                    <p class="text-muted">Unlock achievements to earn rewards</p>
+                </div>
+
+                <!-- Achievements Grid -->
+                <div class="grid grid-5 gap-3" id="achievements-grid">
+                    <!-- Achievements loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Clans Page -->
+            <div id="page-clans" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-shield-alt"></i> Clans</h1>
+                    <p class="text-muted">Join a clan and compete together</p>
+                </div>
+
+                <!-- My Clan -->
+                <div class="my-clan mb-4" id="my-clan">
+                    <!-- My clan loaded by JS -->
+                </div>
+
+                <!-- Clans List -->
+                <h3 class="mb-3">Top Clans</h3>
+                <div class="grid grid-3 gap-3" id="clans-grid">
+                    <!-- Clans loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Chat Page -->
+            <div id="page-chat" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-comments"></i> Chat</h1>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Messages loaded by JS -->
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" class="form-input" id="chat-input" placeholder="Type a message...">
+                        <button class="btn btn-primary" onclick="sendChatMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tournaments Page -->
+            <div id="page-tournaments" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-crown"></i> Tournaments</h1>
+                    <p class="text-muted">Compete for big prizes!</p>
+                </div>
+
+                <!-- Tournament Tabs -->
+                <div class="tabs mb-4">
+                    <button class="tab active">Live</button>
+                    <button class="tab">Upcoming</button>
+                    <button class="tab">Completed</button>
+                    <button class="tab">My Tournaments</button>
+                </div>
+
+                <!-- Tournaments Grid -->
+                <div class="grid grid-2 gap-3" id="tournaments-page-grid">
+                    <!-- Tournaments loaded by JS -->
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="page-settings" class="page hidden">
+                <div class="page-header mb-4">
+                    <h1><i class="fas fa-cog"></i> Settings</h1>
+                </div>
+
+                <!-- Settings List -->
+                <div class="settings-list">
+                    <div class="setting-item card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4>Dark Mode</h4>
+                                <p class="text-muted">Enable dark theme</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="setting-dark-mode" onchange="toggleDarkModeSetting()" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="setting-item card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4>Sound Effects</h4>
+                                <p class="text-muted">Enable game sounds</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="setting-sound" onchange="toggleSoundSetting()" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="setting-item card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4>Notifications</h4>
+                                <p class="text-muted">Push notifications</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="setting-notifications" onchange="toggleNotificationsSetting()" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Actions -->
+                <div class="account-actions mt-4">
+                    <button class="btn btn-danger w-full" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation (Mobile) -->
+        <nav class="bottom-nav">
+            <div class="bottom-nav-content">
+                <a href="#home" class="bottom-nav-item active" onclick="navigateTo('home')">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#games" class="bottom-nav-item" onclick="navigateTo('games')">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Games</span>
+                </a>
+                <a href="#wallet" class="bottom-nav-item" onclick="navigateTo('wallet')">
+                    <i class="fas fa-wallet"></i>
+                    <span>Wallet</span>
+                </a>
+                <a href="#spin" class="bottom-nav-item" onclick="navigateTo('spin')">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Spin</span>
+                </a>
+                <a href="#profile" class="bottom-nav-item" onclick="navigateTo('profile')">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notifications-panel">
+        <div class="notifications-header">
+            <h3>Notifications</h3>
+            <button class="btn btn-sm btn-secondary" onclick="markAllNotificationsRead()">Mark all read</button>
+        </div>
+        <div class="notifications-list" id="notifications-list">
+            <!-- Notifications loaded by JS -->
+        </div>
+    </div>
+
+    <!-- Add Money Modal -->
+    <div class="modal-overlay" id="add-money-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Money</h3>
+                <button class="modal-close" onclick="closeModal('add-money-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" class="form-input" id="add-money-amount" placeholder="Enter amount" min="10">
+                </div>
+                <div class="quick-amounts flex gap-2 flex-wrap mb-3">
+                    <button class="btn btn-secondary btn-sm" onclick="setAddAmount(100)">₹100</button>
+                    <button class="btn btn-secondary btn-sm" onclick="setAddAmount(200)">₹200</button>
+                    <button class="btn btn-secondary btn-sm" onclick="setAddAmount(500)">₹500</button>
+                    <button class="btn btn-secondary btn-sm" onclick="setAddAmount(1000)">₹1000</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Payment Method</label>
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment-method" value="upi" checked>
+                            <span class="payment-label">
+                                <i class="fas fa-mobile-alt"></i> UPI
+                            </span>
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment-method" value="card">
+                            <span class="payment-label">
+                                <i class="fas fa-credit-card"></i> Card
+                            </span>
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment-method" value="netbanking">
+                            <span class="payment-label">
+                                <i class="fas fa-university"></i> Net Banking
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('add-money-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="processAddMoney()">Add Money</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal-overlay" id="withdraw-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Withdraw Money</h3>
+                <button class="modal-close" onclick="closeModal('withdraw-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="withdraw-balance mb-3">
+                    <span class="text-muted">Available Balance:</span>
+                    <span class="font-bold text-success" id="withdraw-available">₹0</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" class="form-input" id="withdraw-amount" placeholder="Enter amount" min="100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bank Account</label>
+                    <select class="form-input" id="withdraw-account">
+                        <option>Select bank account</option>
+                        <option>**** **** 1234 (SBI)</option>
+                        <option>**** **** 5678 (HDFC)</option>
+                    </select>
+                </div>
+                <p class="text-muted">Withdrawal will be processed within 24 hours</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('withdraw-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="processWithdraw()">Withdraw</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div class="modal-overlay" id="game-modal">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="game-modal-title">Game</h3>
+                <button class="modal-close" onclick="closeModal('game-modal')">&times;</button>
+            </div>
+            <div class="modal-body" id="game-modal-body">
+                <!-- Game content loaded by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Styles -->
+    <style>
+        /* Auth Container */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+        }
+
+        .auth-box {
+            width: 100%;
+            max-width: 420px;
+            padding: 32px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius-xl);
+            border: 1px solid var(--border-color);
+        }
+
+        .auth-logo {
+            font-size: 4rem;
+            margin-bottom: 8px;
+        }
+
+        .otp-input {
+            width: 45px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .otp-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Hero Section */
+        .hero-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #252542 100%);
+            border-radius: var(--border-radius-xl);
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .hero-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: var(--border-radius-lg);
+            object-fit: cover;
+        }
+
+        /* Bonus Banner */
+        .bonus-banner {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .bonus-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+        }
+
+        .bonus-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #1a1a2e;
+        }
+
+        .bonus-icon {
+            font-size: 2.5rem;
+        }
+
+        .bonus-banner h3 {
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+
+        .bonus-banner p {
+            color: rgba(26, 26, 46, 0.7);
+            margin: 0;
+        }
+
+        /* VIP Banner */
+        .vip-card {
+            background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .vip-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+        }
+
+        .vip-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: white;
+        }
+
+        .vip-icon {
+            font-size: 2.5rem;
+        }
+
+        .vip-card h3 {
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .vip-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        /* Categories Scroll */
+        .categories-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 24px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: 1px solid var(--border-color);
+            min-width: 100px;
+        }
+
+        .category-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .category-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .category-item span {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Game Card */
+        .game-card {
+            position: relative;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            background: var(--card-bg);
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .game-card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .game-card-content {
+            padding: 12px;
+        }
+
+        .game-card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .game-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .game-card-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+
+        .game-card-locked {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .game-card-locked i {
+            font-size: 2rem;
+            color: var(--text-muted);
+        }
+
+        /* Leaderboard Mini */
+        .leaderboard-mini .leaderboard-item {
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 8px;
+        }
+
+        /* Notifications Panel */
+        .notifications-panel {
+            position: fixed;
+            top: 70px;
+            right: -400px;
+            width: 380px;
+            max-height: calc(100vh - 100px);
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--border-color);
+            z-index: 1100;
+            transition: var(--transition-normal);
+            overflow: hidden;
+        }
+
+        .notifications-panel.active {
+            right: 20px;
+        }
+
+        .notifications-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .notification-item:hover {
+            background: var(--card-hover);
+        }
+
+        .notification-item.unread {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Character Card */
+        .character-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            border: 2px solid var(--border-color);
+        }
+
+        .character-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+        }
+
+        .character-card.selected {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .character-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .character-card.premium .character-emoji {
+            filter: drop-shadow(0 0 10px gold);
+        }
+
+        /* Profile */
+        .profile-avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            font-size: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+        }
+
+        .profile-avatar-container .btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        /* Referral Steps */
+        .referral-step {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            color: white;
+            font-weight: 700;
+        }
+
+        .step-content h4 {
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
+        /* Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: var(--transition-fast);
+            border-radius: 26px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: var(--transition-fast);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .payment-method {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .payment-method input {
+            display: none;
+        }
+
+        .payment-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--darker-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .payment-method input:checked + .payment-label {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Chat */
+        .chat-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .chat-input-container input {
+            flex: 1;
+        }
+
+        /* Top Three */
+        .top-three {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 16px;
+        }
+
+        .top-player {
+            text-align: center;
+            padding: 16px;
+        }
+
+        .top-player.gold {
+            order: 2;
+        }
+
+        .top-player.silver {
+            order: 1;
+        }
+
+        .top-player.bronze {
+            order: 3;
+        }
+
+        .top-player-avatar {
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+        }
+
+        .top-player.gold .top-player-avatar {
+            background: var(--gradient-gold);
+            width: 80px;
+            height: 80px;
+            font-size: 2.5rem;
+        }
+
+        .top-player.silver .top-player-avatar {
+            background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
+            width: 70px;
+            height: 70px;
+        }
+
+        .top-player.bronze .top-player-avatar {
+            background: linear-gradient(135deg, #b45309 0%, #d97706 100%);
+        }
+
+        /* Clan Card */
+        .clan-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            border: 1px solid var(--border-color);
+        }
+
+        .clan-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+        }
+
+        .clan-icon {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+
+        /* Achievement Card */
+        .achievement-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 16px;
+            text-align: center;
+            transition: var(--transition-normal);
+            border: 2px solid var(--border-color);
+        }
+
+        .achievement-card.unlocked {
+            border-color: var(--accent-color);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        /* Transaction Item */
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .transaction-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .transaction-icon.credit {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+        }
+
+        .transaction-icon.debit {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-image img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .bonus-banner, .vip-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .notifications-panel {
+                width: calc(100% - 40px);
+                right: -100%;
+            }
+
+            .notifications-panel.active {
+                right: 20px;
+            }
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Notification badge */
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            background: var(--danger-color);
+            border-radius: 50%;
+            font-size: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* User avatar container */
+        .user-avatar-container {
+            position: relative;
+            width: 48px;
+            height: 48px;
+        }
+
+        .user-avatar-container .character-emoji {
+            font-size: 2.5rem;
+        }
+    </style>
+
+    <!-- Main App Script -->
+    <script src="js/app.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

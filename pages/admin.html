@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - DreamWin</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .admin-header {
+            background: var(--darker-bg);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-nav {
+            display: flex;
+            gap: 8px;
+        }
+        .admin-nav-item {
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .admin-nav-item:hover, .admin-nav-item.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+        .admin-content {
+            padding: 24px;
+        }
+        .stat-card-large {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+        }
+        .stat-card-large .stat-value {
+            font-size: 2.5rem;
+        }
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            margin-top: 24px;
+        }
+        .admin-table {
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+        .admin-table th {
+            background: var(--darker-bg);
+        }
+        .admin-action-btn {
+            padding: 6px 12px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .admin-action-btn.edit {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary-light);
+        }
+        .admin-action-btn.delete {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+        }
+        .admin-action-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="flex items-center gap-3">
+                <span style="font-size: 1.5rem">🎮</span>
+                <h1 class="text-gradient">DreamWin Admin</h1>
+            </div>
+            <nav class="admin-nav">
+                <div class="admin-nav-item active" onclick="showAdminSection('dashboard')">Dashboard</div>
+                <div class="admin-nav-item" onclick="showAdminSection('users')">Users</div>
+                <div class="admin-nav-item" onclick="showAdminSection('games')">Games</div>
+                <div class="admin-nav-item" onclick="showAdminSection('transactions')">Transactions</div>
+                <div class="admin-nav-item" onclick="showAdminSection('withdrawals')">Withdrawals</div>
+            </nav>
+            <div class="flex items-center gap-3">
+                <span class="badge badge-success">Admin</span>
+                <a href="../index.html" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Back to App
+                </a>
+            </div>
+        </header>
+
+        <!-- Admin Content -->
+        <main class="admin-content">
+            <!-- Dashboard Section -->
+            <div id="admin-dashboard">
+                <!-- Stats Row -->
+                <div class="grid grid-4 gap-4 mb-4">
+                    <div class="stat-card-large">
+                        <div class="flex items-center gap-3">
+                            <div class="achievement-icon" style="background: var(--gradient-primary); color: white;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <div class="stat-label">Total Users</div>
+                                <div class="stat-value text-gradient" id="admin-total-users">75,234</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card-large">
+                        <div class="flex items-center gap-3">
+                            <div class="achievement-icon" style="background: var(--gradient-success); color: white;">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div>
+                                <div class="stat-label">Active Today</div>
+                                <div class="stat-value text-success" id="admin-active-users">8,456</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card-large">
+                        <div class="flex items-center gap-3">
+                            <div class="achievement-icon" style="background: var(--gradient-gold); color: #1a1a2e;">
+                                <i class="fas fa-rupee-sign"></i>
+                            </div>
+                            <div>
+                                <div class="stat-label">Total Revenue</div>
+                                <div class="stat-value text-warning" id="admin-revenue">₹12,45,678</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card-large">
+                        <div class="flex items-center gap-3">
+                            <div class="achievement-icon" style="background: var(--gradient-vip); color: white;">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div>
+                                <div class="stat-label">Games Played</div>
+                                <div class="stat-value text-primary" id="admin-games-played">1,45,678</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid grid-2 gap-4">
+                    <div class="chart-container">
+                        <h3 class="mb-3">Revenue Overview</h3>
+                        <div style="height: 300px; display: flex; align-items: flex-end; gap: 12px;">
+                            <div style="flex: 1; background: var(--gradient-primary); height: 60%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-primary); height: 75%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-primary); height: 45%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-primary); height: 90%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-primary); height: 65%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-primary); height: 80%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-primary); height: 55%; border-radius: 8px;"></div>
+                        </div>
+                        <div class="flex justify-between text-muted mt-2">
+                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="mb-3">User Activity</h3>
+                        <div style="height: 300px; display: flex; align-items: flex-end; gap: 12px;">
+                            <div style="flex: 1; background: var(--gradient-success); height: 50%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-success); height: 65%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-success); height: 80%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-success); height: 70%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-success); height: 95%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-success); height: 85%; border-radius: 8px;"></div>
+                            <div style="flex: 1; background: var(--gradient-success); height: 60%; border-radius: 8px;"></div>
+                        </div>
+                        <div class="flex justify-between text-muted mt-2">
+                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="chart-container">
+                    <h3 class="mb-3">Quick Actions</h3>
+                    <div class="flex gap-3 flex-wrap">
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Game</button>
+                        <button class="btn btn-success"><i class="fas fa-gift"></i> Send Bonus</button>
+                        <button class="btn btn-warning"><i class="fas fa-bell"></i> Send Notification</button>
+                        <button class="btn btn-vip"><i class="fas fa-crown"></i> Create Tournament</button>
+                        <button class="btn btn-danger"><i class="fas fa-ban"></i> Ban User</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div id="admin-users" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <h2>Users Management</h2>
+                    <div class="flex gap-2">
+                        <input type="text" class="form-input" placeholder="Search users..." style="width: 300px;">
+                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Level</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Users loaded by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Games Section -->
+            <div id="admin-games" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <h2>Games Management</h2>
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add New Game</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Level</th>
+                                <th>Players</th>
+                                <th>Rating</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="games-table-body">
+                            <!-- Games loaded by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Transactions Section -->
+            <div id="admin-transactions" class="hidden">
+                <h2 class="mb-4">Transactions</h2>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-table-body">
+                            <!-- Transactions loaded by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Withdrawals Section -->
+            <div id="admin-withdrawals" class="hidden">
+                <h2 class="mb-4">Pending Withdrawals</h2>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Bank Account</th>
+                                <th>Requested</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#W001</td>
+                                <td>Rahul K.</td>
+                                <td class="text-success">₹5,000</td>
+                                <td>XXXX-1234</td>
+                                <td>2 hours ago</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="admin-action-btn edit">Approve</button>
+                                    <button class="admin-action-btn delete">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#W002</td>
+                                <td>Priya S.</td>
+                                <td class="text-success">₹10,000</td>
+                                <td>XXXX-5678</td>
+                                <td>5 hours ago</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="admin-action-btn edit">Approve</button>
+                                    <button class="admin-action-btn delete">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#W003</td>
+                                <td>Amit P.</td>
+                                <td class="text-success">₹2,500</td>
+                                <td>XXXX-9012</td>
+                                <td>1 day ago</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <button class="admin-action-btn edit">Approve</button>
+                                    <button class="admin-action-btn delete">Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sample data loading
+        function loadAdminUsers() {
+            const tbody = document.getElementById('users-table-body');
+            const users = [
+                { id: 'U001', name: 'Rahul Kumar', phone: '9876543210', level: 5, balance: 2500, status: 'active', joined: '2024-01-15' },
+                { id: 'U002', name: 'Priya Sharma', phone: '9876543211', level: 8, balance: 15000, status: 'active', joined: '2024-01-10' },
+                { id: 'U003', name: 'Amit Patel', phone: '9876543212', level: 3, balance: 500, status: 'active', joined: '2024-01-20' },
+                { id: 'U004', name: 'Sneha Gupta', phone: '9876543213', level: 7, balance: 8500, status: 'banned', joined: '2024-01-05' },
+                { id: 'U005', name: 'Vikram Singh', phone: '9876543214', level: 10, balance: 50000, status: 'active', joined: '2024-01-01' },
+            ];
+            
+            tbody.innerHTML = users.map(u => `
+                <tr>
+                    <td>#${u.id}</td>
+                    <td>${u.name}</td>
+                    <td>+91 ${u.phone}</td>
+                    <td><span class="badge badge-level">Level ${u.level}</span></td>
+                    <td>₹${u.balance.toLocaleString()}</td>
+                    <td><span class="badge ${u.status === 'active' ? 'badge-success' : 'badge-danger'}">${u.status}</span></td>
+                    <td>${u.joined}</td>
+                    <td>
+                        <button class="admin-action-btn edit">Edit</button>
+                        <button class="admin-action-btn delete">${u.status === 'active' ? 'Ban' : 'Unban'}</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadAdminGames() {
+            const tbody = document.getElementById('games-table-body');
+            const games = [
+                { id: 1, name: 'Lucky Dice', category: 'dice', level: 0, players: '10K+', rating: 4.5, type: 'free' },
+                { id: 4, name: 'Blackjack', category: 'cards', level: 1, players: '25K+', rating: 4.8, type: 'free' },
+                { id: 6, name: 'Poker Pro', category: 'cards', level: 2, players: '40K+', rating: 4.9, type: 'premium' },
+                { id: 8, name: 'Teen Patti', category: 'cards', level: 3, players: '100K+', rating: 4.8, type: 'free' },
+                { id: 21, name: 'VIP Poker', category: 'cards', level: 9, players: '50K+', rating: 4.9, type: 'vip' },
+            ];
+            
+            tbody.innerHTML = games.map(g => `
+                <tr>
+                    <td>#${g.id}</td>
+                    <td>${g.name}</td>
+                    <td><span class="badge badge-primary">${g.category}</span></td>
+                    <td>${g.level}</td>
+                    <td>${g.players}</td>
+                    <td><i class="fas fa-star text-warning"></i> ${g.rating}</td>
+                    <td><span class="badge ${g.type === 'free' ? 'badge-success' : g.type === 'vip' ? 'badge-vip' : 'badge-warning'}">${g.type}</span></td>
+                    <td>
+                        <button class="admin-action-btn edit">Edit</button>
+                        <button class="admin-action-btn delete">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadAdminTransactions() {
+            const tbody = document.getElementById('transactions-table-body');
+            const transactions = [
+                { id: 'T001', user: 'Rahul K.', type: 'deposit', amount: 1000, method: 'UPI', status: 'completed', date: '2024-01-20' },
+                { id: 'T002', user: 'Priya S.', type: 'withdraw', amount: 5000, method: 'Bank', status: 'pending', date: '2024-01-20' },
+                { id: 'T003', user: 'Amit P.', type: 'deposit', amount: 500, method: 'Card', status: 'completed', date: '2024-01-19' },
+                { id: 'T004', user: 'Sneha G.', type: 'bonus', amount: 100, method: '-', status: 'completed', date: '2024-01-19' },
+            ];
+            
+            tbody.innerHTML = transactions.map(t => `
+                <tr>
+                    <td>#${t.id}</td>
+                    <td>${t.user}</td>
+                    <td><span class="badge ${t.type === 'deposit' ? 'badge-success' : t.type === 'withdraw' ? 'badge-danger' : 'badge-primary'}">${t.type}</span></td>
+                    <td class="${t.type === 'withdraw' ? 'text-danger' : 'text-success'}">${t.type === 'withdraw' ? '-' : '+'}₹${t.amount.toLocaleString()}</td>
+                    <td>${t.method}</td>
+                    <td><span class="badge ${t.status === 'completed' ? 'badge-success' : 'badge-warning'}">${t.status}</span></td>
+                    <td>${t.date}</td>
+                    <td>
+                        <button class="admin-action-btn edit">View</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showAdminSection(section) {
+            document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('[id^="admin-"]').forEach(s => {
+                if (s.id !== 'admin-dashboard') s.classList.add('hidden');
+            });
+            
+            const sectionElement = document.getElementById(`admin-${section}`);
+            if (sectionElement) {
+                sectionElement.classList.remove('hidden');
+            }
+            
+            // Load data
+            if (section === 'users') loadAdminUsers();
+            if (section === 'games') loadAdminGames();
+            if (section === 'transactions') loadAdminTransactions();
+        }
+
+        // Initialize
+        loadAdminUsers();
+        loadAdminGames();
+        loadAdminTransactions();
+    </script>
+</body>
+</html>
